@@ -61,7 +61,21 @@ app.route('/articles').get((req, res) => {
 })
 
 
+///////////////////////////////// Request Targetting A Specific Article////////////////////////////////
 
+app.route('/articles/:articleTitle')
+
+    .get((req, res) => {
+        Article.findOne({
+            title: req.params.articleTitle
+        }, (err, foundArticle) => {
+            if (foundArticle) {
+                res.send(foundArticle)
+            } else {
+                res.send('artikel tidak ditemukan')
+            }
+        });
+    });
 
 
 
