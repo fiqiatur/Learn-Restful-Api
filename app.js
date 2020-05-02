@@ -75,7 +75,22 @@ app.route('/articles/:articleTitle')
                 res.send('artikel tidak ditemukan')
             }
         });
-    });
+    })
+    .put((req, res) => {
+        Article.update({
+            title: req.params.articleTitle
+        }, {
+            title: req.body.title,
+            content: req.body.content
+        }, {
+            overwrite: true
+        }, function (err) {
+            if (!err) {
+                res.send('berhasil di update');
+
+            }
+        })
+    })
 
 
 
