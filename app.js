@@ -110,6 +110,18 @@ app.route('/articles/:articleTitle')
         }))
     })
 
+    .delete((req, res) => {
+        Article.deleteOne({
+            title: req.params.articleTitle
+        }, (err => {
+            if (!err) {
+                res.send('berhasil dihapus')
+            } else {
+                res.send(err)
+            }
+        }))
+    })
+
 
 
 
