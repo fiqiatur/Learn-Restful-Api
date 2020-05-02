@@ -25,6 +25,8 @@ const articleSchema = {
 
 const Article = mongoose.model('Articles', articleSchema)
 
+
+
 app.route('/articles').get((req, res) => {
     Article.find((err, foundArticles) => {
         if (!err) {
@@ -76,6 +78,7 @@ app.route('/articles/:articleTitle')
             }
         });
     })
+
     .put((req, res) => {
         Article.update({
             title: req.params.articleTitle
@@ -92,6 +95,20 @@ app.route('/articles/:articleTitle')
         })
     })
 
+    //melakukan patching ketika hanya satu nilai yang di rubah
+    .patch((req, res) => {
+        Article.updateOne({
+            title: req.params.articleTitle
+        }, {
+            $set: req.body
+        }, (err => {
+            if (!err) {
+                res.send('sekses update artikel')
+            } else {
+                res.send(err)
+            }
+        }))
+    })
 
 
 
